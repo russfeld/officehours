@@ -1,12 +1,12 @@
 @servers(['web' => 'root@104.131.121.114', 'cis' => 'russfeld@cslinux.cs.ksu.edu'])
 
 <?php
-$repo = 'git@github.com:russfeld/flowchart.git';
-$release_dir = '/var/www/flowchart_releases';
-$data_dir = '/var/www/flowchart_data';
-$app_dir = '/var/www/flowchart';
-$release_dir_cis = '/web/cis-advising/flowchart_releases';
-$data_dir_cis = '/web/cis-advising/flowchart_data';
+$repo = 'git@github.com:russfeld/officehours.git';
+$release_dir = '/var/www/officehours_releases';
+$data_dir = '/var/www/officehours_data';
+$app_dir = '/var/www/officehours';
+$release_dir_cis = '/web/cis-advising/officehours_releases';
+$data_dir_cis = '/web/cis-advising/officehours_data';
 $app_dir_cis = '/web/cis-advising/html';
 $release = 'release_' . date('YmdHis');
 ?>
