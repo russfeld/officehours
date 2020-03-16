@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Advising - Manage Appointments')
+@section('title', 'Office Hours - Manage Appointments')
 
 @section('scripts')
     <script type="text/javascript">
@@ -24,7 +24,7 @@
 @include('advising._advisor', ['advisor' => $advisor, 'link' => false])
 
 <div class="col-sm-6">
-  <button id="createMeetingBtn" class="btn btn-success btn-block"><i class="fa fa-plus"></i> Create an Advising Meeting</button>
+  <button id="createMeetingBtn" class="btn btn-success btn-block"><i class="fa fa-plus"></i> Create a Meeting</button>
 </div>
 <div class="col-sm-6">
   <button id="createBlackoutBtn" class="btn btn-info btn-block"><i class="fa fa-plus"></i> Create a Blackout Time</button>

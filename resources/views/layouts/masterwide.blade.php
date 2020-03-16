@@ -2,7 +2,7 @@
 <html>
     <head>
         @include('includes.head')
-        <title>K-State Engineering Advising - @yield('title')</title>
+        <title>K-State CS Office Hours - @yield('title')</title>
     </head>
     <body role="document">
         @include('includes.navbar')

@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
-@section('title', 'Advising - Select Advisor')
+@section('title', 'Office Hours - Select Calendar')
 
 @section('content')
 
-<h3 class="top-header">Select an advisor <small>(click department names to expand)</small></h3>
+<h3 class="top-header">Select a calendar <small>(click department names to expand)</small></h3>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 @foreach($departments as $department)
 

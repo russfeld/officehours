@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Advising - Schedule an Appointment')
+@section('title', 'Office Hours - Schedule an Appointment')
 
 @section('scripts')
     <script type="text/javascript">
@@ -14,7 +14,7 @@
 
 @include('advising._message')
 
-<h3 class="top-header">Welcome {{ $user->student->first_name}}! Your currently selected advisor is:</h3>
+<h3 class="top-header">Welcome {{ $user->student->first_name}}! Your currently selected calendar is:</h3>
 
 @include('advising._advisor', ['advisor' => $advisor, 'link' => false])
 

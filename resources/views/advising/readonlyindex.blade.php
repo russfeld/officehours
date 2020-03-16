@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Advising - View Advisor Calendar')
+@section('title', 'Office Hours - View Calendar')
 
 @section('scripts')
     <script type="text/javascript">
