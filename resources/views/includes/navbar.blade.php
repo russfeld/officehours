@@ -18,7 +18,9 @@
             @if(DbConfig::get('navbar_showflowcharts') === true)
               <li class="{{ Request::is('flowcharts*') ? 'active' : '' }}"><a href="{{ url('/flowcharts') }}">Flowcharts</a></li>
             @endif
+            @if(DbConfig::get('navbar_showadvising') === true)
             <li class="{{ Request::is('advising*') ? 'active' : '' }}"><a href="{{ url('/advising') }}">Schedule</a></li>
+            @endif
             @if(DbConfig::get('navbar_showgroupsession') === true)
               <li class="{{ Request::is('groupsession*') ? 'active' : '' }}"><a href="{{ url('/groupsession') }}">Group Advising</a></li>
             @endif

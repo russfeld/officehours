@@ -41,7 +41,7 @@ class PostDeploy extends Command
     {
         $this->info('PostDeploy routine beginning...');
         $settings_off = array("groupsessionenabled", "showmessage");
-        $settings_on = array("navbar_showflowcharts", "navbar_showgroupsession", "navbar_showcourses");
+        $settings_on = array("navbar_showflowcharts", "navbar_showgroupsession", "navbar_showcourses", "navbar_showadvising");
         $bar = $this->output->createProgressBar(count($settings_off) + count($settings_on));
         foreach($settings_off as $setting){
           if(!DbConfig::has($setting)){
@@ -70,7 +70,7 @@ class PostDeploy extends Command
           $editable->version = 0;
           $editable->user_id = 1;
           $editable->contents= "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-light-purple rounded'>
-	<h3 class='top-header text-center'>Group Advising</h3>
+	<h3 class='top-header text-center'>Lab Help Sessions</h3>
 </div>
 
 <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
@@ -134,9 +134,9 @@ class PostDeploy extends Command
           $editable->user_id = 1;
           $editable->contents= "<div class='jumbotron'>
   <div class='container'>
-    <h1>Engineering Advising</h1>
-    <p>Welcome to the new K-State Engineering Advising System. This is your one-stop-shop to find classes, view your flowcharts and degree progress, schedule advising appointments, and more! Check out the sections below to get started.</p>
-    <p><a class='btn btn-primary btn-lg' href='/about' role='button'>Learn more &raquo;</a></p>
+    <h1>CS Office Hours<br></h1>
+    <p>Welcome to the new K-State CS Office Hours system. We're using this to help ease the burden of scheduling online office hours and help sessions.<br></p>
+    <p><a class='btn btn-primary btn-lg' href='/about' role='button'>Learn more »</a></p>
   </div>
 </div>";
           $editable->save();
@@ -152,9 +152,9 @@ class PostDeploy extends Command
           $editable->key = "advising";
           $editable->version = 0;
           $editable->user_id = 1;
-          $editable->contents= "<h2>Advising</h2>
-  <p>When you are ready to enroll or if you have any questions, quickly schedule an appointment with your academic advisor.</p>
-  <p><a class='btn btn-default' href='/advising' role='button'>Schedule an Appointment &raquo;</a></p>";
+          $editable->contents= "<h2>Office Hours</h2>
+  <p>When you are ready to schedule an appointment, click below.</p>
+  <p><a class='btn btn-default' href='/advising' role='button'>Schedule an Appointment »</a></p>";
           $editable->save();
         }
 
@@ -168,9 +168,9 @@ class PostDeploy extends Command
           $editable->key = "groupsession";
           $editable->version = 0;
           $editable->user_id = 1;
-          $editable->contents= "<h2>Group Advising</h2>
-  <p>Attending a group advising session? Click here to get on the waiting list or find your place in the queue.</p>
-  <p><a class='btn btn-default' href='/groupsession' role='button'>Group Advising &raquo;</a></p>";
+          $editable->contents= "<h2>Lab Help</h2>
+  <p>Attending a lab help session? Click here to get on the waiting list or find your place in the queue.</p>
+  <p><a class='btn btn-default' href='/groupsession' role='button'>Lab Help Sessions &raquo;</a></p>";
           $editable->save();
         }
 
@@ -198,8 +198,8 @@ class PostDeploy extends Command
           $editable->key = "about";
           $editable->version = 0;
           $editable->user_id = 1;
-          $editable->contents= "<h2>About the new Engineering Advising System</h2>
-  <p>This site is a work in progress. Our goal is to create the best academic advising experience for students and advisors alike. Contact russfeld@ksu.edu if you have any questions or comments</p>";
+          $editable->contents= "<h2>About the new CS Office Hours System<br></h2>
+  <p>This site is a work in progress. Our goal is to create the best experience for students and advisors alike. Contact russfeld@ksu.edu if you have any questions or comments</p></p>";
           $editable->save();
         }
 

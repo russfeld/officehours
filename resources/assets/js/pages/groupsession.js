@@ -1,10 +1,10 @@
 window.Vue = require('vue');
 var site = require('../util/site');
-var Echo = require('laravel-echo');
+var Echo = require('laravel-echo').default;
+//import Echo from 'laravel-echo'
 require('ion-sound');
 
 window.Pusher = require('pusher-js');
-
 /**
  * Groupsession init function
  * must be called explicitly to start
@@ -89,6 +89,7 @@ exports.init = function(){
 	}
 
 	//Load the Echo instance on the window
+
 	window.Echo = new Echo({
 		broadcaster: 'pusher',
 		key: window.pusherKey,
@@ -182,7 +183,6 @@ exports.init = function(){
 		});
 
 };
-
 
 /**
  * Vue filter for status text
