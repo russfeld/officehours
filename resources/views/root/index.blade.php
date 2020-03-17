@@ -21,9 +21,11 @@
           <p><a class="btn btn-default" href="{{ url('/flowcharts') }}" role="button">View Flowcharts &raquo;</a></p>
        </div>
      -->
-        <div class="col-md-4">
-          @include('editable.textarea', ['field' => $editables['advising']])
-        </div>
+        @if(DbConfig::get('navbar_showadvising') === true)
+          <div class="col-md-4">
+            @include('editable.textarea', ['field' => $editables['advising']])
+          </div>
+        @endif
         @if(DbConfig::get('navbar_showgroupsession') === true)
           <div class="col-md-4">
             @include('editable.textarea', ['field' => $editables['groupsession']])
