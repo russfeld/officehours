@@ -31,9 +31,11 @@
             @include('editable.textarea', ['field' => $editables['groupsession']])
           </div>
         @endif
+        @if(DbConfig::get('navbar_showhelp') === true)
         <div class="col-md-4">
           @include('editable.textarea', ['field' => $editables['help']])
         </div>
+        @endif
       </div>
     </div>
 

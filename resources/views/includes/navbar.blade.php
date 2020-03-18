@@ -24,7 +24,9 @@
             @if(DbConfig::get('navbar_showgroupsession') === true)
               <li class="{{ Request::is('groupsession*') ? 'active' : '' }}"><a href="{{ url('/groupsession') }}">Lab Help Sessions</a></li>
             @endif
+            @if(DbConfig::get('navbar_showhelp') === true)
             <li class="{{ Request::is('help*') ? 'active' : '' }}"><a href="{{ url('/help') }}">Help</a></li>
+            @endif
             @if( Auth::check() && Auth::user()->is_advisor )
             <li class="{{ Request::is('admin*') ? 'active' : '' }}"><a href="{{ url('/admin') }}">Admin</a></li>
             @endif
