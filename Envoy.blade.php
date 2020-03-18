@@ -5,9 +5,9 @@ $repo = 'git@github.com:russfeld/officehours.git';
 $release_dir = '/var/www/officehours_releases';
 $data_dir = '/var/www/officehours_data';
 $app_dir = '/var/www/officehours';
-$release_dir_cis = '/web/cis-advising/officehours_releases';
-$data_dir_cis = '/web/cis-advising/officehours_data';
-$app_dir_cis = '/web/cis-advising/html';
+$release_dir_cis = '/web/officehours/officehours_releases';
+$data_dir_cis = '/web/officehours/officehours_data';
+$app_dir_cis = '/web/officehours/html';
 $release = 'release_' . date('YmdHis');
 ?>
 
