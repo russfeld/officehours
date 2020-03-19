@@ -21,7 +21,7 @@ class Groupsessionlist extends Migration
 
     Schema::table('groupsessions', function (Blueprint $table) {
         $table->integer('groupsessionlist_id')->unsigned();
-        $table->foreign('groupsessionlist_id')->references('id')->on('groupsessionlist');
+        $table->foreign('groupsessionlist_id')->references('id')->on('groupsessionlists');
 
     });
 
