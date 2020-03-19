@@ -12,15 +12,17 @@ class GroupsessionEnd extends Event implements ShouldBroadcast
     use SerializesModels;
 
     public $id;
+    public $gsid;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($gsid)
     {
       $this->id = 0;
+      $this->gsid = $gsid;
     }
 
     /**

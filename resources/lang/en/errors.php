@@ -11,4 +11,5 @@ return [
   'item_exists' => 'Item already exists!',
   'no_spaces' => 'Spaces not allowed in eIDs',
   'default_req' => 'Cannot delete default degree requirements!',
+  'queue_req' => 'Queue id required',
 ];

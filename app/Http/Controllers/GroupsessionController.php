@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\User;
 use App\Models\Advisor;
 use App\Models\Groupsession;
+use App\Models\Groupsessionlist;
 
 use Event;
 use App\Events\GroupsessionRegister;
@@ -39,74 +40,101 @@ class GroupsessionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getIndex()
+    public function getHome()
+    {
+      $user = Auth::user();
+      $groupsessionlists = Groupsessionlist::all();
+      return view('groupsession/home')->with('user', $user)->with('groupsessionlists', $groupsessionlists);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getIndex($gsid = -1)
     {
       $user = Auth::user();
 
-      $enabled = DbConfig::get('groupsessionenabled');
-
-      if($user->is_advisor && $enabled){
-        return redirect('groupsession/list');
+      $enabled = DbConfig::get('groupsessionenabled' . $gsid);
+      if($gsid < 0){
+        return redirect('groupsession');
       }else{
-        return view('groupsession/index')->with('user', $user)->with('enabled', $enabled);
+        if($user->is_advisor && $enabled){
+          return redirect('groupsession/list/' . $gsid);
+        }else{
+          return view('groupsession/index')->with('gsid', $gsid)->with('user', $user)->with('enabled', $enabled);
+        }
       }
     }
 
-    public function getList()
+    public function getList($gsid = -1)
     {
       $user = Auth::user();
-
-      if($user->is_advisor){
-        $user->load('advisor');
-        return view('groupsession/list')->with('user', $user)->with('advisor', $user->advisor);
+      if($gsid < 0){
+        return redirect('groupsession');
       }else{
-        $user->load('student');
-        return view('groupsession/list')->with('user', $user)->with('student', $user->student);
+        if($user->is_advisor){
+          $user->load('advisor');
+          return view('groupsession/list')->with('gsid', $gsid)->with('user', $user)->with('advisor', $user->advisor);
+        }else{
+          $user->load('student');
+          return view('groupsession/list')->with('gsid', $gsid)->with('user', $user)->with('student', $user->student);
+        }
       }
     }
 
-    public function getQueue(){
-      $groupsessions = Groupsession::where('status', '<', 3)->orderBy('status', 'desc')->orderBy('id', 'asc')->get();
+    public function getQueue($gsid = -1){
+      if($gsid < 0){
+        return response()->json(trans('errors.queue_req'));
+      }else{
+        $groupsessions = Groupsession::where('status', '<', 3)->where('groupsessionlist_id', $gsid)->orderBy('status', 'desc')->orderBy('id', 'asc')->get();
 
-      $resource = new Collection($groupsessions, function($gs) {
-            if(isset($gs->advisor)){
-              return[
-                  'id' => (int)$gs->id,
-                  'userid' => (int)$gs->student->user_id,
-                  'name' => $gs->student->name,
-                  'advisor' => $gs->advisor->name,
-                  'status' => (int)$gs->status,
-                  'online' => 0,
-              ];
-            }else{
-              return[
-                  'id' => (int)$gs->id,
-                  'userid' => (int)$gs->student->user_id,
-                  'name' => $gs->student->name,
-                  'advisor' => "",
-                  'status' => (int)$gs->status,
-                  'online' => 0,
-              ];
-            }
-      });
+        $resource = new Collection($groupsessions, function($gs) {
+              if(isset($gs->advisor)){
+                return[
+                    'id' => (int)$gs->id,
+                    'userid' => (int)$gs->student->user_id,
+                    'name' => $gs->student->name,
+                    'advisor' => $gs->advisor->name,
+                    'status' => (int)$gs->status,
+                    'online' => 0,
+                ];
+              }else{
+                return[
+                    'id' => (int)$gs->id,
+                    'userid' => (int)$gs->student->user_id,
+                    'name' => $gs->student->name,
+                    'advisor' => "",
+                    'status' => (int)$gs->status,
+                    'online' => 0,
+                ];
+              }
+        });
 
-      $this->fractal->setSerializer(new JsonSerializer());
-	    return $this->fractal->createData($resource)->toJson();
+        $this->fractal->setSerializer(new JsonSerializer());
+  	    return $this->fractal->createData($resource)->toJson();
+      }
     }
 
-    public function postRegister()
+    public function postRegister($gsid = -1)
     {
-      $user = Auth::user();
-      if(!$user->is_advisor){
-        $groupsession = new Groupsession;
-        $groupsession->student_id = $user->student->id;
-        $groupsession->advisor_id = null;
-        $groupsession->status = Groupsession::$STATUS_QUEUED;
-        $groupsession->save();
-        event(new GroupsessionRegister($groupsession));
-        return response()->json(trans('messages.groupsession_register'));
+      if($gsid < 0){
+        return response()->json(trans('errors.queue_req'));
       }else{
-        return response()->json(trans('errors.students_only'), 403);
+        $user = Auth::user();
+        if(!$user->is_advisor){
+          $groupsession = new Groupsession;
+          $groupsession->student_id = $user->student->id;
+          $groupsession->advisor_id = null;
+          $groupsession->status = Groupsession::$STATUS_QUEUED;
+          $groupsession->groupsessionlist_id = $gsid;
+          $groupsession->save();
+          event(new GroupsessionRegister($groupsession));
+          return response()->json(trans('messages.groupsession_register'));
+        }else{
+          return response()->json(trans('errors.students_only'), 403);
+        }
       }
     }
 
@@ -140,6 +168,7 @@ class GroupsessionController extends Controller
         $newGroupsession->student_id = $groupsession->student_id;
         $newGroupsession->advisor_id = null;
         $newGroupsession->status = Groupsession::$STATUS_QUEUED;
+        $newGroupsession->groupsessionlist_id = $groupsession->groupsessionlist_id;
         $newGroupsession->save();
         event(new GroupsessionRegister($newGroupsession));
         event(new GroupsessionRegister($groupsession));
@@ -181,25 +210,33 @@ class GroupsessionController extends Controller
       }
     }
 
-    public function getEnable(){
-      $user = Auth::user();
-      if($user->is_advisor){
-        DbConfig::store('groupsessionenabled', true);
+    public function getEnable($gsid = -1){
+      if($gsid < 0){
+        return response()->json(trans('errors.queue_req'));
+      }else{
+        $user = Auth::user();
+        if($user->is_advisor){
+          DbConfig::store('groupsessionenabled' . $gsid, true);
+        }
+        return redirect('/groupsession/' . $gsid);
       }
-      return redirect('/groupsession');
     }
 
-    public function postDisable(Request $request){
-      $user = Auth::user();
-      if($user->is_advisor && $user->id == $request->input('id')){
-        DbConfig::store('groupsessionenabled', false);
-        $groupsessions = Groupsession::where('status', '<', 3)->get();
-        foreach($groupsessions as $gs){
-          $gs->status = 4;
-          $gs->save();
+    public function postDisable(Request $request, $gsid = -1){
+      if($gsid < 0){
+        return response()->json(trans('errors.queue_req'));
+      }else{
+        $user = Auth::user();
+        if($user->is_advisor && $user->id == $request->input('id')){
+          DbConfig::store('groupsessionenabled' . $gsid, false);
+          $groupsessions = Groupsession::where('status', '<', 3)->where('groupsessionlist_id', $gsid)->get();
+          foreach($groupsessions as $gs){
+            $gs->status = 4;
+            $gs->save();
+          }
+          event(new GroupsessionEnd($gsid));
         }
-        event(new GroupsessionEnd());
+        return redirect('/groupsession/' . $gsid);
       }
-      return redirect('/groupsession');
     }
 }

@@ -106,6 +106,19 @@ var App = {
 			},
 		},
 
+		GroupsessionlistsController: {
+			//admin/groupsessionlists
+			getGroupsessionlists: function() {
+				var groupsessionlistedit = require('./pages/dashboard/groupsessionlistedit.js');
+				groupsessionlistedit.init();
+			},
+			//admin/newgroupsessionlist
+			getNewgroupsessionlist: function() {
+				var groupsessionlistedit = require('./pages/dashboard/groupsessionlistedit.js');
+				groupsessionlistedit.init();
+			},
+		},
+
 		MeetingsController: {
 			//admin/meetings
 			getMeetings: function() {

@@ -45,7 +45,7 @@
                     <li class="{{ Request::is('admin/departments*') || Request::is('admin/newdepartment*') ? 'active' : '' }}" ><a href="{{ url('/admin/departments') }}">Departments</a></li>
                 </ul>
             </li>
-            @if(Request::is('admin/blackouts*') || Request::is('admin/groupsessions*') || Request::is('admin/meetings*'))
+            @if(Request::is('admin/blackouts*') || Request::is('admin/groupsessions*') || Request::is('admin/meetings*') || Request::is('admin/groupsessionlists*'))
             <li class="treeview active">
             @else
             <li class="treeview">
@@ -54,6 +54,7 @@
                 <ul class="treeview-menu">
                     <li class="{{ Request::is('admin/meetings*') ? 'active' : '' }}" ><a href="{{ url('/admin/meetings') }}">Meetings</a></li>
                     <li class="{{ Request::is('admin/blackouts*') ? 'active' : '' }}" ><a href="{{ url('/admin/blackouts') }}">Blackouts</a></li>
+                    <li class="{{ Request::is('admin/groupsessionlists*') ? 'active' : '' }}" ><a href="{{ url('/admin/groupsessionlists') }}">Groupsession Lists</a></li>
                     <li class="{{ Request::is('admin/groupsessions*') ? 'active' : '' }}" ><a href="{{ url('/admin/groupsessions') }}">Groupsessions</a></li>
                 </ul>
             </li>

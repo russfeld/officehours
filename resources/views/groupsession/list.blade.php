@@ -6,7 +6,8 @@
     <script type="text/javascript">
       window.pusherKey = "{{ config('broadcasting.connections.pusher.key') }}";
       window.pusherCluster = "{{ config('broadcasting.connections.pusher.options.cluster') }}";
-      window.env = "{{ config('app.env') }}"
+      window.env = "{{ config('app.env') }}";
+      window.gsid = "{{ $gsid }}";
     </script>
     @parent
 @endsection

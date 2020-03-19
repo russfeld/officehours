@@ -102,7 +102,7 @@ exports.init = function(){
 		$('#groupspin').addClass('hide-spin');
 
 		//Load the initial student queue via AJAX
-		window.axios.get('/groupsession/queue')
+		window.axios.get('/groupsession/queue/' + window.gsid)
 			.then(function(response){
 				window.vm.queue = window.vm.queue.concat(response.data);
 				checkButtons(window.vm.queue);
@@ -125,9 +125,10 @@ exports.init = function(){
 	//Connect to the groupsessionend channel
 	window.Echo.channel('groupsessionend')
 		.listen('GroupsessionEnd', (e) => {
-
-			//if ending, redirect back to home page
-			window.location.href = "/groupsession";
+			if(e.gsid == window.gsid){
+				//if ending, redirect back to home page
+				window.location.href = "/groupsession/" + window.gsid;
+			}
 	});
 
 	window.Echo.join('presence')
@@ -204,7 +205,7 @@ Vue.filter('statustext', function(data){
 var groupRegisterBtn = function(){
 	$('#groupspin').removeClass('hide-spin');
 
-	var url = '/groupsession/register';
+	var url = '/groupsession/register/' + window.gsid;
 	window.axios.post(url, {})
 		.then(function(response){
 			site.displayMessage(response.data, "success");
@@ -226,7 +227,7 @@ var groupDisableBtn = function(){
 		if(really === true){
 			//this is a bit hacky, but it works
 			var token = $('meta[name="csrf-token"]').attr('content');
-			$('<form action="/groupsession/disable" method="POST"/>')
+			$('<form action="/groupsession/disable/' + window.gsid + '" method="POST"/>')
 				.append($('<input type="hidden" name="id" value="' + window.userID + '">'))
 				.append($('<input type="hidden" name="_token" value="' + token + '">'))
 				.appendTo($(document.body)) //it has to be added somewhere into the <body>
