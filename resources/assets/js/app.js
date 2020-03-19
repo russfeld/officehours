@@ -42,6 +42,13 @@ var App = {
 				var site = require('./util/site');
 				site.checkMessage();
       },
+			//groupsession/home
+      getHome: function() {
+        var editable = require('./util/editable');
+				editable.init();
+				var site = require('./util/site');
+				site.checkMessage();
+      },
 			//groupsesion/list
 			getList: function() {
 				var groupsession = require('./pages/groupsession');

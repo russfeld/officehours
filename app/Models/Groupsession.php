@@ -34,10 +34,6 @@ class Groupsession extends Model
     return $this->belongsTo('App\Models\Student')->withTrashed();
   }
 
-  public function list(){
-    return $this->belongsTo('App\Models\Groupsessionlist');
-  }
-
   public function getStatustextAttribute(){
     switch($this->status){
       case Groupsession::$STATUS_NEW:
