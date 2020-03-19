@@ -17,13 +17,6 @@ class GroupsessionDisabled
      */
     public function handle($request, Closure $next)
     {
-      if(!DbConfig::has('groupsessionenabled')){
-        DbConfig::store('groupsessionenabled', false);
-      }else{
-        if(DbConfig::get('groupsessionenabled') == true){
-          return $next($request);
-        }
-      }
-      return redirect()->action('GroupsessionController@getIndex');
+      return $next($request);
     }
 }
