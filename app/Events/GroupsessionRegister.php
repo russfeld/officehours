@@ -18,6 +18,7 @@ class GroupsessionRegister extends Event implements ShouldBroadcast
     public $advisor;
     public $status;
     public $online;
+    public $gsid;
 
     /**
      * Create a new event instance.
@@ -35,6 +36,7 @@ class GroupsessionRegister extends Event implements ShouldBroadcast
         }
         $this->name = $gs->student->name;
         $this->status = (int)$gs->status;
+        $this->gsid = $gs->groupsessionlist_id;
         $this->online = 0;
     }
 

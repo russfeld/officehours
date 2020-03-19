@@ -11,6 +11,8 @@
 
 @section('content')
 
+<h3 class="top-header text-center">Queue: {{ $groupsessionlist->name }}</h3>
+
 @include('editable.textarea', ['field' => $editables['head' . $gsid]])
 
 @if($user->is_advisor)

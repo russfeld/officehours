@@ -164,7 +164,7 @@ exports.init = function(){
 			}
 
 			//if element not found on current queue, push it on to the queue
-			if(!found){
+			if(!found && data.gsid == window.gsid){
 				queue.push(data);
 			}
 

@@ -55,15 +55,15 @@ class GroupsessionController extends Controller
     public function getIndex($gsid = -1)
     {
       $user = Auth::user();
-
-      $enabled = DbConfig::get('groupsessionenabled' . $gsid);
       if($gsid < 0){
         return redirect('groupsession');
       }else{
+        $enabled = DbConfig::get('groupsessionenabled' . $gsid);
+        $groupsessionlist = Groupsessionlist::find($gsid);
         if($user->is_advisor && $enabled){
           return redirect('groupsession/list/' . $gsid);
         }else{
-          return view('groupsession/index')->with('gsid', $gsid)->with('user', $user)->with('enabled', $enabled);
+          return view('groupsession/index')->with('gsid', $gsid)->with('groupsessionlist', $groupsessionlist)->with('user', $user)->with('enabled', $enabled);
         }
       }
     }
@@ -74,12 +74,13 @@ class GroupsessionController extends Controller
       if($gsid < 0){
         return redirect('groupsession');
       }else{
+        $groupsessionlist = Groupsessionlist::find($gsid);
         if($user->is_advisor){
           $user->load('advisor');
-          return view('groupsession/list')->with('gsid', $gsid)->with('user', $user)->with('advisor', $user->advisor);
+          return view('groupsession/list')->with('gsid', $gsid)->with('groupsessionlist', $groupsessionlist)->with('user', $user)->with('advisor', $user->advisor);
         }else{
           $user->load('student');
-          return view('groupsession/list')->with('gsid', $gsid)->with('user', $user)->with('student', $user->student);
+          return view('groupsession/list')->with('gsid', $gsid)->with('groupsessionlist', $groupsessionlist)->with('user', $user)->with('student', $user->student);
         }
       }
     }
