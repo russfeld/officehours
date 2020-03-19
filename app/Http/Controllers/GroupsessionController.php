@@ -58,7 +58,7 @@ class GroupsessionController extends Controller
 
       $enabled = DbConfig::get('groupsessionenabled' . $gsid);
       if($gsid < 0){
-        return redirect('groupsession');
+        return redirect('groupsessionhome');
       }else{
         if($user->is_advisor && $enabled){
           return redirect('groupsession/list/' . $gsid);
@@ -72,7 +72,7 @@ class GroupsessionController extends Controller
     {
       $user = Auth::user();
       if($gsid < 0){
-        return redirect('groupsession');
+        return redirect('groupsessionhome');
       }else{
         if($user->is_advisor){
           $user->load('advisor');

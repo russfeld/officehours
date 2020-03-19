@@ -22,7 +22,7 @@
             <li class="{{ Request::is('advising*') ? 'active' : '' }}"><a href="{{ url('/advising') }}">Schedule</a></li>
             @endif
             @if(DbConfig::get('navbar_showgroupsession') === true)
-              <li class="{{ Request::is('groupsession*') ? 'active' : '' }}"><a href="{{ url('/groupsession') }}">Lab Help Sessions</a></li>
+              <li class="{{ Request::is('groupsession*') ? 'active' : '' }}"><a href="{{ url('/groupsessionhome') }}">Lab Help Sessions</a></li>
             @endif
             @if(DbConfig::get('navbar_showhelp') === true)
             <li class="{{ Request::is('help*') ? 'active' : '' }}"><a href="{{ url('/help') }}">Help</a></li>

@@ -100,7 +100,7 @@ Route::post('profile/newstudent', 'ProfilesController@postNewstudent');
  * Routes for the GroupsessionController
  */
 //Route::controller('groupsession', 'GroupsessionController');
-Route::get('groupsession/', 'GroupsessionController@getHome');
+Route::get('groupsessionhome/', 'GroupsessionController@getHome');
 Route::get('groupsession/{gsid}', 'GroupsessionController@getIndex');
 Route::get('groupsession/list/{gsid}', 'GroupsessionController@getList');
 Route::get('groupsession/queue/{gsid}', 'GroupsessionController@getQueue');
