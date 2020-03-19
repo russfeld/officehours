@@ -99,18 +99,17 @@ Route::post('profile/newstudent', 'ProfilesController@postNewstudent');
 /*
  * Routes for the GroupsessionController
  */
-//Route::controller('groupsession', 'GroupsessionController');
 Route::get('groupsessionhome/', 'GroupsessionController@getHome');
-Route::get('groupsession/{gsid}', 'GroupsessionController@getIndex');
-Route::get('groupsession/list/{gsid}', 'GroupsessionController@getList');
-Route::get('groupsession/queue/{gsid}', 'GroupsessionController@getQueue');
-Route::post('groupsession/register/{gsid}', 'GroupsessionController@postRegister');
+Route::get('groupsession/{gsid?}', 'GroupsessionController@getIndex');
+Route::get('groupsession/list/{gsid?}', 'GroupsessionController@getList');
+Route::get('groupsession/queue/{gsid?}', 'GroupsessionController@getQueue');
+Route::post('groupsession/register/{gsid?}', 'GroupsessionController@postRegister');
 Route::post('groupsession/take', 'GroupsessionController@postTake');
 Route::post('groupsession/put', 'GroupsessionController@postPut');
 Route::post('groupsession/done', 'GroupsessionController@postDone');
 Route::post('groupsession/delete', 'GroupsessionController@postDelete');
-Route::get('groupsession/enable/{gsid}', 'GroupsessionController@getEnable');
-Route::post('groupsession/disable/{gsid}', 'GroupsessionController@postDisable');
+Route::get('groupsession/enable/{gsid?}', 'GroupsessionController@getEnable');
+Route::post('groupsession/disable/{gsid?}', 'GroupsessionController@postDisable');
 
 /*
  * Routes for the DashboardController
