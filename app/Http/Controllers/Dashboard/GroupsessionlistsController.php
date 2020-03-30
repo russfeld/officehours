@@ -43,6 +43,40 @@ class GroupsessionlistsController extends Controller
       if($groupsessionlist->validate($data)){
         $groupsessionlist->fill($data);
         $groupsessionlist->save();
+        $editables = Editable::where('controller', 'GroupsessionController')->where('action', 'getIndex')->where('key', 'head' . $groupsessionlist->id)->where('version', 0)->get();
+        if($editables->count() == 0){
+          $editable = new Editable;
+          $editable->controller = "GroupsessionController";
+          $editable->action = "getIndex";
+          $editable->key = "head" . $groupsessionlist->id;
+          $editable->version = 0;
+          $editable->user_id = 1;
+          $editable->contents= "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-light-purple rounded'>
+  <h3 class='top-header text-center'>Edit Me</h3>
+  </div>
+
+  <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+  <p>Edit Me</p>
+  </div>";
+          $editable->save();
+        }
+        $editables = Editable::where('controller', 'GroupsessionController')->where('action', 'getList')->where('key', 'head' . $groupsessionlist->id)->where('version', 0)->get();
+        if($editables->count() == 0){
+          $editable = new Editable;
+          $editable->controller = "GroupsessionController";
+          $editable->action = "getList";
+          $editable->key = "head" . $groupsessionlist->id;
+          $editable->version = 0;
+          $editable->user_id = 1;
+          $editable->contents= "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-light-purple rounded'>
+  <h3 class='top-header text-center'>Edit Me</h3>
+  </div>
+
+  <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+  <p>Edit Me</p>
+  </div>";
+          $editable->save();
+        }
         return response()->json(trans('messages.item_saved'));
       }else{
         return response()->json($groupsessionlist->errors(), 422);
@@ -61,6 +95,23 @@ class GroupsessionlistsController extends Controller
         $editable = new Editable;
         $editable->controller = "GroupsessionController";
         $editable->action = "getIndex";
+        $editable->key = "head" . $groupsessionlist->id;
+        $editable->version = 0;
+        $editable->user_id = 1;
+        $editable->contents= "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-light-purple rounded'>
+<h3 class='top-header text-center'>Edit Me</h3>
+</div>
+
+<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+<p>Edit Me</p>
+</div>";
+        $editable->save();
+      }
+      $editables = Editable::where('controller', 'GroupsessionController')->where('action', 'getList')->where('key', 'head' . $groupsessionlist->id)->where('version', 0)->get();
+      if($editables->count() == 0){
+        $editable = new Editable;
+        $editable->controller = "GroupsessionController";
+        $editable->action = "getList";
         $editable->key = "head" . $groupsessionlist->id;
         $editable->version = 0;
         $editable->user_id = 1;

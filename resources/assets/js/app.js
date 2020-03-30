@@ -51,6 +51,8 @@ var App = {
       },
 			//groupsesion/list
 			getList: function() {
+				var editable = require('./util/editable');
+				editable.init();
 				var groupsession = require('./pages/groupsession');
 				groupsession.init();
 			},
