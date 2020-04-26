@@ -2,11 +2,11 @@
 
 <?php
 $repo = 'git@github.com:russfeld/flowchart.git';
-$release_dir = '/var/www/flowchart_releases';
-$data_dir = '/var/www/flowchart_data';
-$app_dir = '/var/www/flowchart';
-$release_dir_cis = '/web/cis-advising/flowchart_releases';
-$data_dir_cis = '/web/cis-advising/flowchart_data';
+$release_dir = '/var/www/cis640_releases';
+$data_dir = '/var/www/cis640_data';
+$app_dir = '/var/www/cis640';
+$release_dir_cis = '/web/cis-advising/cis640_releases';
+$data_dir_cis = '/web/cis-advising/cis640_data';
 $app_dir_cis = '/web/cis-advising/html';
 $release = 'release_' . date('YmdHis');
 ?>
