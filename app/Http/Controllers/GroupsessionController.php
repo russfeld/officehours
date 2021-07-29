@@ -75,6 +75,10 @@ class GroupsessionController extends Controller
         return redirect('groupsession');
       }else{
         $groupsessionlist = Groupsessionlist::find($gsid);
+        $enabled = DbConfig::get('groupsessionenabled' . $gsid);
+        if(!$enabled){
+            return redirect('groupsession/' . $gsid);
+        }
         if($user->is_advisor){
           $user->load('advisor');
           return view('groupsession/list')->with('gsid', $gsid)->with('groupsessionlist', $groupsessionlist)->with('user', $user)->with('advisor', $user->advisor);
